@@ -1,0 +1,38 @@
+{
+  "BalanceResponse": {
+    "accountId": "83405188",
+    "institutionType": "BROKERAGE",
+    "asOfDate": 1704067200,
+    "accountType": "MARGIN",
+    "optionLevel": "LEVEL_2",
+    "accountDescription": "NickName-1",
+    "quoteMode": 6,
+    "dayTraderStatus": "PDT_MINEQUITY_MET",
+    "accountMode": "IRA",
+    "Cash": {
+      "fundsForOpenOrdersCash": 0,
+      "moneyMktBalance": 12500.45
+    },
+    "Computed": {
+      "cashAvailableForInvestment": 12500.45,
+      "cashAvailableForWithdrawal": 12500.45,
+      "totalAvailableForWithdrawal": 12500.45,
+      "netCash": 12500.45,
+      "cashBalance": 12500.45,
+      "settledCashForInvestment": 12500.45,
+      "unSettledCashForInvestment": 0,
+      "fundsWithheldFromPurchasePower": 0,
+      "fundsWithheldFromWithdrawal": 0,
+      "marginBuyingPower": 25000.90,
+      "cashBuyingPower": 12500.45,
+      "dtMarginBuyingPower": 50001.80,
+      "dtCashBuyingPower": 25000.90,
+      "RealTimeValues": {
+        "totalAccountValue": 87453.21,
+        "netMv": 74952.76,
+        "netMvLong": 74952.76,
+        "netMvShort": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+dist/
+*.local.env
+.DS_Store
+node_modules/
+dist/
+.env
+ANALYSIS.md
+LAUNCH-PLAN.md
+*.local

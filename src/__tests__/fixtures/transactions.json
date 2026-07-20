@@ -1,0 +1,40 @@
+{
+  "TransactionListResponse": {
+    "Transaction": [
+      {
+        "transactionId": 10000001,
+        "accountId": "83405188",
+        "transactionDate": 1704067200,
+        "postDate": 1704153600,
+        "amount": -15525.00,
+        "description": "BOUGHT AAPL 100 SHARES @ 155.25",
+        "transactionType": "Bought",
+        "imageFlag": false,
+        "Category": {
+          "categoryId": "0",
+          "parentId": "0",
+          "categoryName": "Trade",
+          "parentName": "Trade"
+        },
+        "Brokerage": {
+          "transactionType": "Bought",
+          "Product": {
+            "symbol": "AAPL",
+            "securityType": "EQ"
+          },
+          "quantity": 100,
+          "price": 155.25,
+          "settlementCurrency": "USD",
+          "paymentCurrency": "USD",
+          "fee": 0,
+          "settlementDate": 1704153600
+        }
+      }
+    ],
+    "next": null,
+    "marker": null,
+    "moreTransactions": false,
+    "transactionCount": 1,
+    "totalCount": 1
+  }
+}

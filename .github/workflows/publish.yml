@@ -1,0 +1,93 @@
+name: Publish
+
+# Fires on any `vX.Y.Z`-style tag push (e.g. `v1.0.0`). Tagging is a manual,
+# deliberate act — this workflow never runs on a plain push to main.
+on:
+  push:
+    tags:
+      - "v*"
+
+# id-token: write is required for npm's OIDC "trusted publisher" exchange
+# (no long-lived NPM_TOKEN secret needed). contents: read is the minimum for
+# checkout.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    name: npm publish (OIDC provenance)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # registry-url wires up .npmrc for registry.npmjs.org; no NODE_AUTH_TOKEN
+      # is set anywhere in this workflow — trusted publishing authenticates via
+      # the OIDC id-token above, not a static token.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      # npm's OIDC trusted-publishing exchange requires the npm CLI itself to
+      # be >= 11.5.1; actions/setup-node's bundled npm is often older, so
+      # upgrade explicitly before touching the registry.
+      - name: Upgrade npm (trusted publishing needs npm >= 11.5.1)
+        run: npm i -g npm@latest
+
+      # ---------------------------------------------------------------------
+      # Three prerequisites for this workflow to actually publish anything —
+      # none of them are things this workflow file can set up by itself:
+      #
+      #   1. The GitHub repo must be PUBLIC. npm provenance attestation proves
+      #      the published artifact was built from a *publicly verifiable*
+      #      source + workflow run; npmjs.com rejects `--provenance` coming
+      #      from a private repo's CI.
+      #
+      #   2. A Trusted Publisher must be configured on npmjs.com for this
+      #      exact repo + workflow file: npmjs.com -> package `etrade-mcp` ->
+      #      Settings -> Trusted Publisher -> GitHub Actions -> publisher repo
+      #      `sblattj/etrade-mcp`, workflow `.github/workflows/publish.yml`.
+      #      Without that binding there's nothing for the OIDC token to
+      #      authenticate against.
+      #
+      #   3. A Trusted Publisher can only be attached to a package that
+      #      ALREADY EXISTS on the npm registry, so the very first publish of
+      #      a brand-new package name (`etrade-mcp`) must be a manual
+      #      `npm login && npm publish --access public` from a local machine
+      #      before this workflow can publish anything at all. This workflow
+      #      is for every release AFTER that first manual publish.
+      # ---------------------------------------------------------------------
+
+      - name: Check whether this version is already on npm
+        id: check
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          # `npm view <pkg>@<ver>` exits nonzero for a version/package that
+          # doesn't exist yet (E404) — that is the common, expected case for a
+          # fresh release and must NOT fail this job. Only a successful lookup
+          # (rc=0, the version is already published) sets skip=true.
+          if npm view "etrade-mcp@$VER" version >/dev/null 2>&1; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm
+        if: steps.check.outputs.skip == 'false'
+        run: npm publish --provenance --access public
+
+      - name: Already published (skip)
+        if: steps.check.outputs.skip == 'true'
+        run: echo "etrade-mcp@${{ steps.check.outputs.version }} is already on npm — nothing to publish. This keeps a release-tag rerun (e.g. after a manual first publish) green instead of failing on a duplicate-version error."
