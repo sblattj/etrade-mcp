@@ -1,0 +1,30 @@
+{
+  "AccountListResponse": {
+    "Accounts": {
+      "Account": [
+        {
+          "accountId": "83405188",
+          "accountIdKey": "dBZOKt9xDrtRSAOl4MSiiA",
+          "accountMode": "IRA",
+          "accountDesc": "Brokerage",
+          "accountName": "NickName-1",
+          "accountType": "MARGIN",
+          "institutionType": "BROKERAGE",
+          "accountStatus": "ACTIVE",
+          "closedDate": 0
+        },
+        {
+          "accountId": "83405187",
+          "accountIdKey": "vQMsebA1H5WltUfDkJP48g",
+          "accountMode": "CASH",
+          "accountDesc": "Complete Savings",
+          "accountName": "NickName-2",
+          "accountType": "INDIVIDUAL",
+          "institutionType": "BROKERAGE",
+          "accountStatus": "ACTIVE",
+          "closedDate": 0
+        }
+      ]
+    }
+  }
+}

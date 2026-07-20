@@ -1,0 +1,43 @@
+{
+  "PortfolioResponse": {
+    "AccountPortfolio": [
+      {
+        "accountId": "83405188",
+        "next": "2",
+        "totalPages": 1,
+        "Position": [
+          {
+            "positionId": 27004432,
+            "symbolDescription": "APPLE INC",
+            "dateAcquired": -1,
+            "pricePaid": 155.25,
+            "commissions": 0,
+            "otherFees": 0,
+            "quantity": 100,
+            "positionIndicator": "TYPE1",
+            "positionType": "LONG",
+            "daysGain": 125.50,
+            "daysGainPct": 0.28,
+            "marketValue": 18245.00,
+            "totalCost": 15525.00,
+            "totalGain": 2720.00,
+            "totalGainPct": 17.52,
+            "pctOfPortfolio": 24.34,
+            "Product": {
+              "symbol": "AAPL",
+              "securityType": "EQ"
+            },
+            "Quick": {
+              "lastTrade": 182.45,
+              "lastTradeTime": 1704067200,
+              "change": 1.26,
+              "changePct": 0.70,
+              "volume": 45678900
+            }
+          }
+        ]
+      }
+    ],
+    "totalPages": 1
+  }
+}

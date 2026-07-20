@@ -1,0 +1,66 @@
+{
+	"name": "etrade-mcp",
+	"version": "1.0.0",
+	"description": "MCP server for the E*TRADE Account + Order APIs: account reads always-on, order placement opt-in via ETRADE_ALLOW_ORDERS=1.",
+	"license": "MIT",
+	"repository": "github:sblattj/etrade-mcp",
+	"homepage": "https://github.com/sblattj/etrade-mcp#readme",
+	"bugs": "https://github.com/sblattj/etrade-mcp/issues",
+	"author": "Stephen Blatt",
+	"keywords": [
+		"mcp",
+		"etrade",
+		"model-context-protocol",
+		"trading",
+		"broker",
+		"oauth"
+	],
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist/",
+		"README.md",
+		"LICENSE"
+	],
+	"bin": {
+		"etrade-mcp": "./dist/mcp.js",
+		"etrade-mcp-auth": "./dist/auth.js",
+		"etrade-mcp-auth-start": "./dist/auth-start.js",
+		"etrade-mcp-auth-finish": "./dist/auth-finish.js",
+		"etrade-mcp-renew": "./dist/auth-renew-cli.js",
+		"etrade-mcp-totp": "./dist/totp-cli.js",
+		"etrade-mcp-login-fill": "./dist/login-fill.js"
+	},
+	"scripts": {
+		"dev": "bun run src/mcp.ts",
+		"auth": "bun run src/auth.ts",
+		"auth:start": "bun run src/auth-start.ts",
+		"auth:finish": "bun run src/auth-finish.ts",
+		"totp": "bun run src/totp-cli.ts",
+		"login:fill": "bun run src/login-fill.ts",
+		"test": "bun test src/__tests__",
+		"test:integration": "ETRADE_RUN_INTEGRATION=1 bun test src/__tests__/integration.test.ts",
+		"typecheck": "tsc --noEmit",
+		"renew": "bun run src/auth-renew-cli.ts",
+		"build": "bun scripts/build.ts",
+		"prepublishOnly": "bun run build"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.11",
+		"dotenv": "^16.5",
+		"oauth-1.0a": "^2.2.6",
+		"zod": "^3.23"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.5",
+		"@types/bun": "^1.2",
+		"typescript": "^5.7"
+	}
+}

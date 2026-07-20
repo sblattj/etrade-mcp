@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: test + build + handshake smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run tests
+        run: bun test src/__tests__
+
+      - name: Build
+        run: bun run build
+
+      # package.json declares no `engines.node`, so this smoke deliberately runs
+      # under ubuntu-latest's pre-installed Node rather than pinning one via
+      # actions/setup-node — the same `node dist/mcp.js` runtime real consumers
+      # hit via `npx etrade-mcp`. If an `engines.node` constraint is ever added,
+      # add actions/setup-node here (pinned to satisfy it) before this step.
+      - name: MCP stdio handshake smoke (docs/demo-handshake.mjs)
+        env:
+          # Dummy, non-secret values. loadEnv() only checks these are non-empty
+          # at process startup — no network call happens before the handshake's
+          # initialize/tools/list responses come back, so no real E*TRADE
+          # credentials are needed to exercise the handshake.
+          ETRADE_PROD_API_KEY: ci-smoke-dummy-key
+          ETRADE_PROD_API_SECRET: ci-smoke-dummy-secret
+        run: node docs/demo-handshake.mjs node dist/mcp.js
