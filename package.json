@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"description": "MCP server for the E*TRADE Account + Order APIs: account reads always-on, order placement opt-in via ETRADE_ALLOW_ORDERS=1.",
 	"license": "MIT",
-	"repository": "github:sblattj/etrade-mcp",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sblattj/etrade-mcp.git"
+	},
 	"homepage": "https://github.com/sblattj/etrade-mcp#readme",
 	"bugs": "https://github.com/sblattj/etrade-mcp/issues",
 	"author": "Stephen Blatt",
@@ -30,13 +33,13 @@
 		"LICENSE"
 	],
 	"bin": {
-		"etrade-mcp": "./dist/mcp.js",
-		"etrade-mcp-auth": "./dist/auth.js",
-		"etrade-mcp-auth-start": "./dist/auth-start.js",
-		"etrade-mcp-auth-finish": "./dist/auth-finish.js",
-		"etrade-mcp-renew": "./dist/auth-renew-cli.js",
-		"etrade-mcp-totp": "./dist/totp-cli.js",
-		"etrade-mcp-login-fill": "./dist/login-fill.js"
+		"etrade-mcp": "dist/mcp.js",
+		"etrade-mcp-auth": "dist/auth.js",
+		"etrade-mcp-auth-start": "dist/auth-start.js",
+		"etrade-mcp-auth-finish": "dist/auth-finish.js",
+		"etrade-mcp-renew": "dist/auth-renew-cli.js",
+		"etrade-mcp-totp": "dist/totp-cli.js",
+		"etrade-mcp-login-fill": "dist/login-fill.js"
 	},
 	"scripts": {
 		"dev": "bun run src/mcp.ts",
