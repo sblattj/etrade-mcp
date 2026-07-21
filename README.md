@@ -218,10 +218,10 @@ returns — not the plain account number.
 | `ETRADE_SANDBOX_API_KEY` / `ETRADE_SANDBOX_API_KEY_SECRET` | for `ETRADE_ENV=sandbox` | Your E\*TRADE sandbox consumer key/secret. |
 | `ETRADE_PROD_API_KEY` / `ETRADE_PROD_API_SECRET` | for `ETRADE_ENV=prod` | Your E\*TRADE production consumer key/secret. |
 | `ETRADE_ALLOW_ORDERS` | optional | Set to `1` to register the write tools (`preview`/`place`/`cancel`). Anything else, or unset, is read-only. |
-| `ETRADE_VERIFIER` | optional | Verifier code for `auth:finish` (or pass it as a CLI argument). |
-| `ETRADE_TOTP_SECRET` | optional | Base32 VIP TOTP secret, for `bun run totp`. |
-| `ETRADE_LOGIN_USERNAME` / `ETRADE_LOGIN_PASSWORD` | optional | Used only by `bun run login:fill`'s browser automation. |
-| `CDP_PORT` | optional | Debug port for `login:fill`'s browser automation. Defaults to `9333`. |
+| `ETRADE_VERIFIER` | optional | Verifier code for `etrade-mcp-auth-finish` (or pass it as a CLI argument). |
+| `ETRADE_TOTP_SECRET` | optional | Base32 VIP TOTP secret, for `etrade-mcp-totp`. |
+| `ETRADE_LOGIN_USERNAME` / `ETRADE_LOGIN_PASSWORD` | optional | Used only by `etrade-mcp-login-fill`'s browser automation. |
+| `CDP_PORT` | optional | Debug port for `etrade-mcp-login-fill`'s browser automation. Defaults to `9333`. |
 
 ## Why this exists
 
@@ -247,8 +247,8 @@ lists or built-in position-sizing math, `mcp_etrade` covers ground this one does
 ## Testing
 
 ```bash
-bun test                          # Unit tests (fast, no network) — 147 pass / 5 skip
-bun test:integration              # Manual: requires a valid sandbox token on disk
+bun test                          # Unit tests (fast, no network)
+bun run test:integration          # Manual: requires a valid sandbox token on disk
 
 # Opt-in, PREVIEW-ONLY order smoke (never places an order) — run with the market closed:
 ETRADE_RUN_INTEGRATION=1 ETRADE_RUN_ORDER_PREVIEW=1 \
