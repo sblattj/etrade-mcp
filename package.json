@@ -1,6 +1,7 @@
 {
 	"name": "etrade-mcp",
-	"version": "1.0.0",
+	"version": "1.0.2",
+	"mcpName": "io.github.sblattj/etrade-mcp",
 	"description": "MCP server for the E*TRADE Account + Order APIs: account reads always-on, order placement opt-in via ETRADE_ALLOW_ORDERS=1.",
 	"license": "MIT",
 	"repository": {
