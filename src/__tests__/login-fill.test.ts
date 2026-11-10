@@ -61,7 +61,7 @@ describe("planFillSequence", () => {
 describe("pickLoginTarget", () => {
   const tgt = (over: Partial<CdpTarget>): CdpTarget => ({
     type: "page",
-    webSocketDebuggerUrl: "ws://localhost:9333/devtools/page/ABC",
+    webSocketDebuggerUrl: "ws://localhost:9222/devtools/page/ABC",
     ...over,
   });
 

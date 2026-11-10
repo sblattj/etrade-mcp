@@ -173,7 +173,7 @@ third-party TOTP dependency) — so you don't need your phone during the browser
 `npx -y --package=etrade-mcp etrade-mcp-login-fill` (or, from a clone, `bun run login:fill`; reads
 `ETRADE_LOGIN_USERNAME` / `ETRADE_LOGIN_PASSWORD`) drives a
 Chromium-family browser already open on E\*TRADE's login page over the Chrome DevTools Protocol
-(`CDP_PORT`, default `9333`), filling the username and password fields with trusted input events. It
+(`CDP_PORT`, default `9222`), filling the username and password fields with trusted input events. It
 fills only those two fields — never the 2FA/verifier step — and never prints the credential values,
 only their lengths. It's a building block for your own re-auth automation, not a turnkey unattended
 login.
@@ -221,7 +221,7 @@ returns — not the plain account number.
 | `ETRADE_VERIFIER` | optional | Verifier code for `etrade-mcp-auth-finish` (or pass it as a CLI argument). |
 | `ETRADE_TOTP_SECRET` | optional | Base32 VIP TOTP secret, for `etrade-mcp-totp`. |
 | `ETRADE_LOGIN_USERNAME` / `ETRADE_LOGIN_PASSWORD` | optional | Used only by `etrade-mcp-login-fill`'s browser automation. |
-| `CDP_PORT` | optional | Debug port for `etrade-mcp-login-fill`'s browser automation. Defaults to `9333`. |
+| `CDP_PORT` | optional | Debug port for `etrade-mcp-login-fill`'s browser automation. Defaults to `9222`. |
 
 ## Why this exists
 

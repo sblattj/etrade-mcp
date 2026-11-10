@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * Fill the E*TRADE web-login User ID + Password from ENV via CDP (a Chromium-family browser on the
- * debug port, default :9333), WITHOUT the values ever entering stdout or an agent transcript — a
+ * debug port, default :9222), WITHOUT the values ever entering stdout or an agent transcript — a
  * secret-hygiene path for CDP-driven automation, used INSTEAD of a generic CDP `fill` helper (which
  * typically logs the value it's handed). Prints LENGTHS only.
  *
@@ -15,7 +15,7 @@
  * worked through ~6/16, then a form/anti-automation change started rejecting untrusted input) while a
  * manual human login sailed straight through. insertText is the same trusted path the human used.
  *
- * Prereq: Arc (or any Chrome) on the CDP port (default 9333) currently on the E*TRADE login page.
+ * Prereq: Arc (or any Chrome) on the CDP port (default 9222) currently on the E*TRADE login page.
  */
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,7 +25,7 @@ import dotenv from "dotenv";
 // environment variables always take precedence.
 dotenv.config();
 
-const CDP_PORT = process.env.CDP_PORT ?? "9333";
+const CDP_PORT = process.env.CDP_PORT ?? "9222";
 
 export type FillField = "user" | "pw";
 
@@ -128,7 +128,7 @@ if (isMain) {
         "are printed. Requires an open E*TRADE login tab on the CDP port first.\n\n" +
         "Reads from the environment:\n" +
         "  ETRADE_LOGIN_USERNAME / ETRADE_LOGIN_PASSWORD   (required)\n" +
-        "  CDP_PORT                                        (optional, default 9333)\n",
+        "  CDP_PORT                                        (optional, default 9222)\n",
     );
     process.exit(0);
   }
